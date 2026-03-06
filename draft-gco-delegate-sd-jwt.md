@@ -11,14 +11,10 @@ v: 3
 # area: AREA
 # workgroup: WG Working Group
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - security
+ - sd-jwt
+ - delegate sd-jwt
 venue:
-#  group: WG
-#  type: Working Group
-#  mail: WG@example.com
-#  arch: https://example.com/WG
   github: "GarethCOliver/gco-delegate-sd-jwt"
   latest: "https://GarethCOliver.github.io/gco-delegate-sd-jwt/draft-gco-delegate-sd-jwt.html"
 
@@ -36,7 +32,7 @@ informative:
 
 --- abstract
 
-TODO Abstract
+This document specifies an extension to Selective Disclosure JSON Web Tokens [@!RFC9901] to support further delegation from the Holder to a Delegate Holder. This is done by allowing the Key Binding JWT to also be an SD-JWT, optionally with its own Key Binding. This has particular applicability to Agentic systems.
 
 
 --- middle
