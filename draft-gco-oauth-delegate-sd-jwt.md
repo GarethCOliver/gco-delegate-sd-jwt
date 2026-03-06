@@ -1,6 +1,8 @@
 %%%
 title = "Delegate SD-JWT"
 ipr = "trust200902"
+area = "Security"
+workgroup = "Web Authorization Protocol"
 keyword = ["sd-jwt", "delegate sd-jwt"]
 
 [seriesInfo]
@@ -56,27 +58,38 @@ This specification defines extensions to the SD-JWT and SD-JWT+KB formats:
 
 # Conventions and Definitions
 
-{::boilerplate bcp14-tagged}
 
-**Delegated SD-JWT(dSD-JWT)** A composite structure consisting of an SD-JWT and a Key Binding SD-JWT (KB-SD-JWT). It acts as a chain of SD-JWTs where the Key Binding of the previous SD-JWT is used to sign the new one, allowing the Verifier to link presentations back to the initial Issuer.
+## Requirements Notation and Conventions
 
-**Delegated SD-JWT with Key Binding (dSD-JWT+KB)** An extension of the dSD-JWT that includes a final Key Binding JWT (KB-JWT). This allows the Delegate Holder to demonstrate proof of possession of the dSD-JWT.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in RFC 2119 [@!RFC2119].
 
-**Key Binding SD-JWT (KB-SD-JWT)** An alternative format for a KB-JWT used to secure a nested, selectively disclosable JSON object (the Delegate Payload). It serves as the KB-JWT for the preceding SD-JWT in a chain.
+## Terms and Definitions
 
-**Key Binding SD-JWT+KB (KB-SD-JWT+KB)** A specific type of KB-SD-JWT where the `typ` parameter is set to "kb+sd-jwt+kb". This type requires the Delegate Payload to include a `cnf` claim.
+This specification uses the terms "Disclosure", "Selectively Disclosable JWT (SD-JWT)", "Key Binding",
+"Key Binding JWT (KB-JWT)", "Selectively Disclosable JWT with Key Binding (SD-JWT+KB)" defined by
+[@!RFC9901].
 
-**Delegate Payload** A JSON object (which may be nested and selectively disclosable) over which the KB-SD-JWT signs. In a dSD-JWT+KB, this payload MUST include a `cnf` claim to establish the Delegate Holder's key.
+*Delegated SD-JWT(dSD-JWT)*: A composite structure consisting of an SD-JWT and a Key Binding SD-JWT (KB-SD-JWT). It acts as a chain of SD-JWTs where the Key Binding of the previous SD-JWT is used to sign the new one, allowing the Verifier to link presentations back to the initial Issuer.
 
-**Issuer**: An entity that creates the initial SD-JWT.
+*Delegated SD-JWT with Key Binding (dSD-JWT+KB)*: An extension of the dSD-JWT that includes a final Key Binding JWT (KB-JWT). This allows the Delegate Holder to demonstrate proof of possession of the dSD-JWT.
 
-**Holder**: An entity that receives the initial SD-JWT from the Issuer and has initial control of it. They may present the SD-JWT to a Verifier directly or delegate it to a Delegate Holder.
+*Key Binding SD-JWT (KB-SD-JWT)*: An alternative format for a KB-JWT used to secure a nested, selectively disclosable JSON object (the Delegate Payload). It serves as the KB-JWT for the preceding SD-JWT in a chain.
 
-**Delegate Holder**: An intermediary entity to whom the original Holder delegates the SD-JWT. The Delegate Holder can perform further presentations or delegations of the SD-JWT.
+*Key Binding SD-JWT+KB (KB-SD-JWT+KB)*: A specific type of KB-SD-JWT where the `typ` parameter is set to "kb+sd-jwt+kb". This type requires the Delegate Payload to include a `cnf` claim.
 
-**Verifier**: An entity that requests, checks and extracts the claims of the SD-JWT or dSD-JWT.
+*Delegate Payload*: A JSON object (which may be nested and selectively disclosable) over which the KB-SD-JWT signs. In a dSD-JWT+KB, this payload MUST include a `cnf` claim to establish the Delegate Holder's key.
 
-**Delegation**: Delegation in this document refers to a Holder or Delegate Holder presenting a credential to a Delegate Holder for the purpose of further presentation.
+*Issuer*: An entity that creates the initial SD-JWT.
+
+*Holder*: An entity that receives the initial SD-JWT from the Issuer and has control of it. They may present the SD-JWT to a Verifier directly or delegate it to a Delegate Holder.
+
+*Delegate Holder*: An intermediary entity to whom the original Holder delegates the SD-JWT. The Delegate Holder can perform further presentations or delegations of the SD-JWT.
+
+*Verifier*: An entity that requests, checks and extracts the claims of the SD-JWT or dSD-JWT.
+
+*Delegation*: Delegation in this document refers to a Holder or Delegate Holder presenting a credential to a Delegate Holder for the purpose of further presentation.
 
 # Flow Diagram
 
@@ -226,7 +239,7 @@ The Delegate KB-JWT is a KB-JWT as per [@!RFC9901] Section 4.3 except that `sd_h
 
 This specifies two new extensions to the KB-JWT. The following additional parameter is include:
 
-* “**delegate\_payload**”: An array of JSON Objects. If it contains more than one element then they MUST all be replaced with disclosures. During the presentation of a dSD-JWT from a Delegate Holder to a Verifier exactly one of these MUST be disclosed.
+* “*delegate\_payload*”: An array of JSON Objects. If it contains more than one element then they MUST all be replaced with disclosures. During the presentation of a dSD-JWT from a Delegate Holder to a Verifier exactly one of these MUST be disclosed.
   * When presenting from a Holder to a new Delegate Holder, multiple values being present allows for multiple dSD-JWTs to be delegated with a single signature which may be convenient when using a signing key that requires a user action per signing event.
 
 KB-SD-JWTs MUST conform to all the requirements of a KB-JWT and an SD-JWT except as listed below:
