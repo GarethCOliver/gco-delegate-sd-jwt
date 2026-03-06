@@ -2,8 +2,8 @@
 title: "Delegate SD-JWT"
 category: info
 
-docname: draft-gco-delegate-sd-jwt-latest
-submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
+docname: draft-gco-oauth-delegate-sd-jwt-latest
+submissiontype: IETF 
 number:
 date:
 consensus: true
