@@ -7,12 +7,12 @@
 <title>Delegate SD-JWT</title>
 <meta content="Gareth Oliver" name="author">
 <meta content="
-       TODO Abstract 
+       This document specifies an extension to Selective Disclosure JSON Web Tokens [@!RFC9901] to support further delegation from the Holder to a Delegate Holder. This is done by allowing the Key Binding JWT to also be an SD-JWT, optionally with its own Key Binding. This has particular applicability to Agentic systems. 
     " name="description">
 <meta content="xml2rfc 3.31.0" name="generator">
-<meta content="next generation" name="keyword">
-<meta content="unicorn" name="keyword">
-<meta content="sparkling distributed ledger" name="keyword">
+<meta content="security" name="keyword">
+<meta content="sd-jwt" name="keyword">
+<meta content="delegate sd-jwt" name="keyword">
 <meta content="draft-gco-delegate-sd-jwt-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.31.0
@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">WG Working Group</dd>
+<dd class="workgroup">Network Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-gco-delegate-sd-jwt-latest</dd>
 <dt class="label-published">Published:</dt>
@@ -1082,7 +1082,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Delegate SD-JWT</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document specifies an extension to Selective Disclosure JSON Web Tokens [@!RFC9901] to support further delegation from the Holder to a Delegate Holder. This is done by allowing the Key Binding JWT to also be an SD-JWT, optionally with its own Key Binding. This has particular applicability to Agentic systems.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1090,14 +1090,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
-        The latest revision of this draft can be found at <span><a href="https://example.com/LATEST">https://example.com/LATEST</a></span>.
+        The latest revision of this draft can be found at <span><a href="https://GarethCOliver.github.io/gco-delegate-sd-jwt/draft-gco-delegate-sd-jwt.html">https://GarethCOliver.github.io/gco-delegate-sd-jwt/draft-gco-delegate-sd-jwt.html</a></span>.
         Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-gco-delegate-sd-jwt/">https://datatracker.ietf.org/doc/draft-gco-delegate-sd-jwt/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">
-        Discussion of this document takes place on the
-        WG Working Group mailing list (<span><a href="mailto:WG@example.com">mailto:WG@example.com</a></span>),
-        which is archived at <span><a href="https://example.com/WG">https://example.com/WG</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
-<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/USER/REPO">https://github.com/USER/REPO</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/GarethCOliver/gco-delegate-sd-jwt">https://github.com/GarethCOliver/gco-delegate-sd-jwt</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
