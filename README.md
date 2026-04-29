@@ -5,9 +5,9 @@
 This is the working area for the individual Internet-Draft, "Delegate SD-JWT".
 
 * [Editor's Copy](https://GarethCOliver.github.io/gco-delegate-sd-jwt/#go.draft-gco-delegate-sd-jwt.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-gco-delegate-sd-jwt)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-gco-delegate-sd-jwt)
-* [Compare Editor's Copy to Individual Draft](https://GarethCOliver.github.io/gco-delegate-sd-jwt/#go.draft-gco-delegate-sd-jwt.diff)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-gco-oauth-delegate-sd-jwt)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-gco-oauth0delegate-sd-jwt)
+* [Compare Editor's Copy to Individual Draft](https://GarethCOliver.github.io/gco-delegate-sd-jwt/#go.draft-gco-ouauth-delegate-sd-jwt.diff)
 
 
 ## Contributing
