@@ -5,7 +5,7 @@
 This is the working area for the individual Internet-Draft, "Delegate SD-JWT".
 
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-gco-oauth-delegate-sd-jwt)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-gco-oauth0delegate-sd-jwt)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-gco-oauth-delegate-sd-jwt)
 
 
 ## Contributing
