@@ -263,11 +263,11 @@ To perform verification of an dSD-JWT or dSD-JWT+KB the following steps must be 
 1. Split the dSD-JWT into its component SD-JWTs
    1. For a dSD-JWT this will be:
       * A SD-JWT
-      * zero or more KB-SD-JWTs with `typ` "kb-sd-jwt+kb"
-      * one KB-SD-JWT with `typ` “kb-sd-jwt”
+      * zero or more KB-SD-JWTs with `typ` "kb+sd-jwt+kb"
+      * one KB-SD-JWT with `typ` “kb+sd-jwt”
    2. For a dSD-JWT+KB this will be:
       *  A SD-JWT
-      * One or  more KB-SD-JWTs with `typ` kb-sd-jwt+kb”
+      * One or more KB-SD-JWTs with `typ` kb+sd-jwt+kb”
       * One KB-JWT
 2. Validate and process the initial SD-JWT according to [@!RFC9901] Section 7.1.
 3. For each KB-SD-JWT except the final one:
@@ -277,10 +277,10 @@ To perform verification of an dSD-JWT or dSD-JWT+KB the following steps must be 
    2. Verify that there is exactly one disclosed element in the `delegate_payload` array.
    3. If the `sd_hash` claim is present, calculate the digest over the proceeding SD-JWT or KB-SD-JWT and it's disclosures, as described in [@!RFC9901] Section 9.10.
    d. Otherwise, verify that the `issuer_jwt_hash` is present and matches the base64url encoded digest of the proceeding Issuer signed JWT or KB-SD-JWT+KB.
-   e. Verify the `typ` in the JWT Payload is “kb-sd-jwt+kb”
+   e. Verify the `typ` in the JWT Payload is “kb+sd-jwt+kb”
 4. For the final KB-SD-JWT:
    1. Validate and process it according to 3.1 \- 3.3
-   2. If the credential is a dSD-JWT then the type MUST be “kb-sd-jwt” otherwise it MUST be “kb-sd-jwt+kb”
+   2. If the credential is a dSD-JWT then the type MUST be “kb+sd-jwt” otherwise it MUST be “kb+sd-jwt+kb”
 5. If the credential is a dSD-JWT+KB and Key Binding is required
    1. Follow section 7.3 step 5 to to verify the KB-JWT, using the final KB-SD-JWT to retrieve the Delegate Holder public key.
    2. If the `sd_hash` claim is present, calculate the digest over the proceeding SD-JWT or KB-SD-JWT+KB and it's disclosures as described in [@!RFC9901] Section 9.10.
