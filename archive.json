@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-06-16T04:41:53.362005+00:00",
+  "timestamp": "2026-06-18T04:15:13.967024+00:00",
   "repo": "GarethCOliver/gco-delegate-sd-jwt",
   "labels": [
     {
@@ -50,5 +50,32 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDORer75M7nAjXy",
+      "title": "Fix `typ` parameter value",
+      "url": "https://github.com/GarethCOliver/gco-delegate-sd-jwt/pull/1",
+      "state": "OPEN",
+      "author": "Vanderkast",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR aligns `typ` parameter values in Verification section with Media Type Registration section.\r\n\r\n\r\nMedia Type Registration section declares the following `typ` parameter values: `kb+sd-jwt` and `kb+sd-jwt+kb` (with `+sd-jwt` suffix). But Verification section uses `kb-sd-jwt` and `kb-sd-jwt+kb`.\r\n",
+      "createdAt": "2026-06-16T12:46:43Z",
+      "updatedAt": "2026-06-16T12:46:43Z",
+      "baseRepository": "GarethCOliver/gco-delegate-sd-jwt",
+      "baseRefName": "main",
+      "baseRefOid": "d67d48eff3c6b06c8a66b6a5692999115ef8a1a3",
+      "headRepository": "Vanderkast/delegate-sd-jwt",
+      "headRefName": "typ-consistent-with-registration",
+      "headRefOid": "2ca1c6a50f7c28010b7ed9b16233db33feeab346",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
