@@ -187,15 +187,14 @@ A dSD-JWT with a single delegation is composed of:
 
 A dSD-JWT+KB with a single delegation is composed of:
 
-* A dSD-JWT
-* A KB-SD-JWT
+* A dSD-JWT whose KB-SD-JWT is a KB-SD-JWT+KB
 * A KB-JWT
 
 A dSD-JWT or dSD-JWT+KB with multiple delegations is composed of:
 
 * A SD-JWT
 * Two or more KB-SD-JWTs
-* When the format is dDS-JWT-KB, a KB-JWT.
+* When the format is dSD-JWT+KB, a KB-JWT.
 
 ### Compact Serialization
 
@@ -205,7 +204,7 @@ The dSD-JWT format extends the SD-JWT format defined in [@!RFC9901] Section 4 by
 <SD-JWT>~~<KB-JWT>~<Delegated Disclosure 1>~...~<Delegated Disclosure M>~
 ```
 
-The \<KB-JWT\> along with its disclosures is called a KB-SD-JWT.
+The \<KB-JWT\> along with its disclosures is called a KB-SD-JWT. In the examples in this section, \<SD-JWT\> and \<KB-SD-JWT\> denote the respective structure without its trailing tilde character.
 
 The dSD-JWT+KB format further extends the dSD-JWT format by appending a delegate KB-JWT:
 
@@ -216,7 +215,7 @@ The dSD-JWT+KB format further extends the dSD-JWT format by appending a delegate
 This can be chained by replacing the KB-JWT with another KB-SD-JWT instead:
 
 ```example
-<SD-JWT>~~<KB-SD-JWT 1>~...~<KB-SD-JWT n>~<delegate KB-JWT>
+<SD-JWT>~~<KB-SD-JWT 1>~~...~~<KB-SD-JWT n>~<delegate KB-JWT>
 ```
 
 To process a dSD-JWT or a dSD-JWT+KB, the string is split on \~ as usual. The resulting array of components MUST have exactly one empty component between the last component of each SD-JWT or KB-SD-JWT and the following KB-SD-JWT. The following KB-SD-JWT is then used as the KB-JWT for the preceding SD-JWT.
@@ -235,7 +234,7 @@ The Disclosure Payload MUST follow all rules for the payload of the Issuer-signe
 
 The Delegate Disclosures are created as per [@!RFC9901] Section 4.2.
 
-The Delegate KB-JWT is a KB-JWT as per [@!RFC9901] Section 4.3 except that `sd_hash`, when present, is calculated over the preceding SD-JWT or KB-SD-JWT and its associated disclosures.
+The Delegate KB-JWT is a KB-JWT as per [@!RFC9901] Section 4.3 except that the REQUIRED `sd_hash` is calculated over the preceding KB-SD-JWT and its associated disclosures.
 
 ### KB-SD-JWT and KB-SD-JWT+KB {#kb-sd-jwt}
 
@@ -252,7 +251,7 @@ KB-JWT changes:
   * If the `typ` is KB-SD-JWT+KB then the Delegate Payload MUST include a `cnf` claim.
 * The `sd_hash` parameter is OPTIONAL. If it is not present it MUST instead include a `issuer_jwt_hash` parameter that hashes over only the preceding Issuer-signed jwt or KB-SD-JWT+KB and not any disclosures.
 
-When present, the `sd_hash` is calculated over the preceding SD-JWT or KB-SD-JWT, including its disclosures, as described in [@!RFC9901,Section 4.3.1].
+When present, the `sd_hash` is calculated over the preceding SD-JWT or KB-SD-JWT, including its disclosures, as described in [@!RFC9901,Section 4.3.1]. Both `sd_hash` and `issuer_jwt_hash` use the hash algorithm of the preceding Issuer-signed JWT or KB-SD-JWT+KB, as defined in [@!RFC9901] Section 4.3.1.
 
 SD-JWT changes:
 
@@ -266,7 +265,7 @@ To perform verification of an dSD-JWT or dSD-JWT+KB the following steps must be 
    1. For a dSD-JWT this will be:
       * A SD-JWT
       * zero or more KB-SD-JWTs with `typ` "kb-sd-jwt+kb"
-      * one KB-SD-JWT with `typ` “kb-sd-jwt”
+      * one KB-SD-JWT with `typ` "kb+sd-jwt" or "kb-sd-jwt+kb"
    2. For a dSD-JWT+KB this will be:
       * A SD-JWT
       * One or  more KB-SD-JWTs with `typ` "kb-sd-jwt+kb"
@@ -279,14 +278,14 @@ To perform verification of an dSD-JWT or dSD-JWT+KB the following steps must be 
    2. Verify that there is exactly one disclosed element in the `delegate_payload` array.
    3. If the `sd_hash` claim is present, calculate the digest over the preceding SD-JWT or KB-SD-JWT and its disclosures, as described in [@!RFC9901, Section 4.3.1], and verify that it matches the value of the `sd_hash` claim.
    4. Otherwise, verify that the `issuer_jwt_hash` is present and matches the base64url encoded digest of the preceding Issuer-signed JWT or KB-SD-JWT+KB.
-   5. Verify the `typ` in the JWT Payload is "kb-sd-jwt+kb"
+   5. Verify the `typ` in the JOSE header is "kb-sd-jwt+kb"
 4. For the final KB-SD-JWT:
    1. Validate and process it according to 3.1 \- 3.4
-   2. If the credential is a dSD-JWT then the `typ` MUST be "kb+sd-jwt" otherwise it MUST be "kb-sd-jwt+kb"
+   2. If the credential is a dSD-JWT+KB then the `typ` MUST be "kb-sd-jwt+kb", otherwise it MUST be "kb+sd-jwt" or "kb-sd-jwt+kb"
 5. If Key Binding is required
    1. If the credential is a dSD-JWT (without Key Binding), the Verifier MUST reject the presentation, as per [@!RFC9901, Section 7.3].
    2. Follow step 5 of [@!RFC9901, Section 7.3] to verify the KB-JWT, using the final KB-SD-JWT to retrieve the Delegate Holder public key.
-   3. If the `sd_hash` claim is present, calculate the digest over the preceding SD-JWT or KB-SD-JWT+KB and its disclosures as described in [@!RFC9901, Section 4.3.1], and verify that it matches the value of the `sd_hash` claim.
+   3. Calculate the digest over the final KB-SD-JWT+KB and its disclosures as described in [@!RFC9901, Section 4.3.1], and verify that it matches the value of the `sd_hash` claim.
 
 If any of the steps fail then the presentation is invalid and processing MUST be aborted. Otherwise the list of processed SD-JWT and Delegate Payloads MAY be passed to the application to be used for their intended purpose.
 
@@ -296,13 +295,13 @@ Presentation mechanisms that allow specification of additional transaction data 
 
 ## dSD-JWT Delegation using OpenID4VP
 
-OpenId4VP [@!OIDF.OID4VP] specifies `transaction_data` within the request, which is included within the KB-JWT. To delegate an dSD-JWT or dSD-JWT+KB the `transaction_type` `delegate` MAY be used. The following additional parameters are included in the `transaction_data` object:
+OpenId4VP [@!OIDF.OID4VP] specifies `transaction_data` within the request, which is included within the KB-JWT. To delegate an dSD-JWT or dSD-JWT+KB the transaction data `type` `delegate` MAY be used. The following additional parameters are included in the `transaction_data` object:
 
 * “format”: REQUIRED string containing either `dSD-JWT` or `dSD-JWT+KB`
 * “delegate\_payload\_disclosure”: REQUIRED String containing the Array Disclosure of the delegate payload.
 * “delegate\_disclosures”: OPTIONAL Array of Strings containing the Disclosures for the selectively disclosable claims.
 
-The delegate payload MUST NOT contain any disclosures not provided in `delegate_disclosures`. The KB-JWT includes the digest of the `delegate_payload` in the `delegate_payload` claim of the KB-JWT. `_sd_hash` may use any hash algorithm specified for hashing the `transaction_data`. The Wallet MAY include additional decoy digests.
+The delegate payload MUST NOT contain any disclosures not provided in `delegate_disclosures`. The KB-JWT includes the digest of the `delegate_payload` in the `delegate_payload` claim of the KB-JWT. `_sd_alg` may use any hash algorithm specified for hashing the `transaction_data`. The Wallet MAY include additional decoy digests.
 
 Multiple `delegate` `transaction_data` MAY be included in the same request. In that case, each MUST have their digest included in the `delegate_payload`.
 
