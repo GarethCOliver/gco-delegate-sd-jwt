@@ -4,8 +4,8 @@
 
 Web Authorization Protocol                                     G. Oliver
 Internet-Draft                                                    Google
-Intended status: Standards Track                            6 March 2026
-Expires: 7 September 2026
+Intended status: Standards Track                       21 September 2026
+Expires: 25 March 2027
 
 
                             Delegate SD-JWT
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 September 2026.
+   This Internet-Draft will expire on 25 March 2027.
 
 Copyright Notice
 
@@ -426,11 +426,11 @@ Table of Contents
    1.  Split the dSD-JWT into its component SD-JWTs
        1.  For a dSD-JWT this will be:
            *  A SD-JWT
-           *  zero or more KB-SD-JWTs with typ "kb-sd-jwt+kb"
-           *  one KB-SD-JWT with typ “kb-sd-jwt”
+           *  zero or more KB-SD-JWTs with typ "kb+sd-jwt+kb"
+           *  one KB-SD-JWT with typ “kb+sd-jwt”
        2.  For a dSD-JWT+KB this will be:
            *  A SD-JWT
-           *  One or more KB-SD-JWTs with typ kb-sd-jwt+kb”
+           *  One or more KB-SD-JWTs with typ kb+sd-jwt+kb”
            *  One KB-JWT
    2.  Validate and process the initial SD-JWT according to [RFC9901]
        Section 7.1.
@@ -447,12 +447,12 @@ Table of Contents
            described in [RFC9901] Section 9.10. d.  Otherwise, verify
            that the issuer_jwt_hash is present and matches the base64url
            encoded digest of the proceeding Issuer signed JWT or KB-SD-
-           JWT+KB. e.  Verify the typ in the JWT Payload is “kb-sd-
+           JWT+KB. e.  Verify the typ in the JWT Payload is “kb+sd-
            jwt+kb”
    4.  For the final KB-SD-JWT:
        1.  Validate and process it according to 3.1 - 3.3
-       2.  If the credential is a dSD-JWT then the type MUST be “kb-sd-
-           jwt” otherwise it MUST be “kb-sd-jwt+kb”
+       2.  If the credential is a dSD-JWT then the type MUST be “kb+sd-
+           jwt” otherwise it MUST be “kb+sd-jwt+kb”
    5.  If the credential is a dSD-JWT+KB and Key Binding is required
        1.  Follow section 7.3 step 5 to to verify the KB-JWT, using the
            final KB-SD-JWT to retrieve the Delegate Holder public key.
