@@ -83,6 +83,7 @@ Table of Contents
      A.1.  JSON Web Token Claims Registration
      A.2.  Media Type Registration
    Appendix B.  Acknowledgments
+   Appendix C.  Document History
    Author's Address
 
 1.  Introduction
@@ -113,16 +114,16 @@ Table of Contents
    Holder.  Additionally, the Holder should be able to provide
    additional (optionally disclosable) claims as part of the Delegation.
 
-   One example usecase is to delegate to an AI agent the ability to
-   perform purchases on the users behalf, along with constraints on
+   One example use-case is to delegate to an AI agent the ability to
+   perform purchases on the user's behalf, along with constraints on
    valid fulfillment conditions.  The AI Agent can then prove to a
    merchant that it has been authorized to perform a purchase at this
-   merchant on a Holders behalf, without revealing what other merchants
-   may have been able to fulfill this purchase.
+   merchant on the Holder's behalf, without revealing what other
+   merchants may have been able to fulfill this purchase.
 
-   The approach taken here is to extend te KB-JWT so that it can be used
-   as the start of a new SD-JWT or SD-JWT+KB, linking the resulting SD-
-   JWT to the original one.
+   The approach taken here is to extend the KB-JWT so that it can be
+   used as the start of a new SD-JWT or SD-JWT+KB, linking the resulting
+   SD-JWT to the original one.
 
 1.1.  Feature Summary
 
@@ -140,7 +141,7 @@ Table of Contents
        *  An alternative format to do the same for the SD-JWT JSON
           Serialization format.
    2.  dSD-JWT+KB which extends dSD-JWT to include Key Binding, allowing
-       the Delegate Holder to prove proof of possession.
+       the Delegate Holder to demonstrate proof of possession.
        *  This re-uses the KB-JWT mechanism specified by SD-JWT+KB for
           associating and presenting a proof of possession of a key
           pair.
@@ -180,7 +181,7 @@ Table of Contents
    in a chain.
 
    _Key Binding SD-JWT+KB (KB-SD-JWT+KB)_: A specific type of KB-SD-JWT
-   where the typ parameter is set to "kb+sd-jwt+kb".  This type requires
+   where the typ parameter is set to "kb-sd-jwt+kb".  This type requires
    the Delegate Payload to include a cnf claim.
 
    _Delegate Payload_: A JSON object (which may be nested and
@@ -260,7 +261,7 @@ Table of Contents
 4.  Concepts
 
    At a high level, a dSD-JWT acts as a chain of SD-JWTs where the KB-
-   JWT in the proceeding SD-JWT+KB fulfills the role of the Issuer-JWT
+   JWT in the preceding SD-JWT+KB fulfills the role of the Issuer-JWT
    for the next.  This allows the Verifier to know the full chain that
    the dSD-JWT went through and link the presentations back to the
    initial Issuer while preserving the principles of Data Minimization.
@@ -274,14 +275,14 @@ Table of Contents
 
    A Delegate Holder may always choose to include or omit selective
    disclosures from the Delegate Payload.  If the Holder wishes to allow
-   the Delegate Holder to omit selective disclosures from the proceeding
+   the Delegate Holder to omit selective disclosures from the preceding
    SD-JWT it MUST omit the sd_hash claim from the KB-JWT and include the
    issuer_jwt_hash claim instead.
 
 4.2.  Optional Key Binding
 
-   Keybinding is required for the initial SD-JWTs and all KB-SD-JWTs
-   except the final one.  It is optional for key binding to be used for
+   Key Binding is required for the initial SD-JWTs and all KB-SD-JWTs
+   except the final one.  It is optional for Key Binding to be used for
    the final KB-SD-JWT.  When it is used, the Delegate Holder’s public
    key information is included in the Delegate Payload of the final KB-
    SD-JWT.  This allows the Delegate Holder to create a KB-JWT in future
@@ -292,13 +293,13 @@ Table of Contents
 
    At a high level verification works as follows:
 
-   *  The Verifier receives a dSD-JWT or dSD-JWT+KB from the Delegated
+   *  The Verifier receives a dSD-JWT or dSD-JWT+KB from the Delegate
       Holder.
    *  The Verifier splits the dSD-JWT into a chain with an SD-JWT, one
       or more KB-SD-JWT and (in the case of a dSD-JWT+KB) a final KB-
       JWT.
-   *  The Verifier verifies the first SD-JWT+KB using the issuer key,
-      using the second KB-SD-JWT as the KB-JWT.
+   *  The Verifier verifies the first SD-JWT+KB using the Issuer key,
+      using the KB-SD-JWT that immediately follows it as the KB-JWT.
    *  For each KB-SD-JWT, the Verifier verifies it as an SD-JWT+KB,
       treating the Delegate Payload as the JWT payload.  The key from
       the cnf claim of the previous SD-JWT is used.
@@ -316,28 +317,30 @@ Table of Contents
       -  i.e. An issuer-signed JWT
       -  zero or more disclosures
    *  A KB-SD-JWT
-      -  Serves as the KB-JWT for the proceeding SD-JWT
+      -  Serves as the KB-JWT for the preceding SD-JWT
       -  This is also the SD-JWT containing the Delegated Payload.
 
    A dSD-JWT+KB with a single delegation is composed of:
 
-   *  A dSD-JWT
-   *  A KB-SD-JWT
+   *  A dSD-JWT whose KB-SD-JWT is a KB-SD-JWT+KB
    *  A KB-JWT
 
    A dSD-JWT or dSD-JWT+KB with multiple delegations is composed of:
 
    *  A SD-JWT
    *  Two or more KB-SD-JWTs
-   *  When the format is dDS-JWT-KB, a KB-JWT.
+   *  When the format is dSD-JWT+KB, a KB-JWT.
 
 5.1.1.  Compact Serialization
 
-   The dSD-JWT format extends the existing SD-JWT+KB format as follows:
+   The dSD-JWT format extends the SD-JWT format defined in [RFC9901]
+   Section 4 by appending a tilde character followed by a KB-SD-JWT:
 
    <SD-JWT>~~<KB-JWT>~<Delegated Disclosure 1>~...~<Delegated Disclosure M>~
 
-   The <KB-JWT> along with its disclosures is called a KB-SD-JWT.
+   The <KB-JWT> along with its disclosures is called a KB-SD-JWT.  In
+   the examples in this section, <SD-JWT> and <KB-SD-JWT> denote the
+   respective structure without its trailing tilde character.
 
    The dSD-JWT+KB format further extends the dSD-JWT format by appending
    a delegate KB-JWT:
@@ -347,13 +350,13 @@ Table of Contents
    This can be chained by replacing the KB-JWT with another KB-SD-JWT
    instead:
 
-   <SD-JWT>~~<KB-SD-JWT 1>~...~<KB-SD-JWT n>~<delegate KB-JWT>
+   <SD-JWT>~~<KB-SD-JWT 1>~~...~~<KB-SD-JWT n>~<delegate KB-JWT>
 
    To process a dSD-JWT or a dSD-JWT+KB, the string is split on ~ as
-   usual.  The resulting array of components MUST have an empty
-   component between the last disclosure of each SD-JWT before the
-   following KB-SD-JWT.  The following KB-SD-JWT is then used as the KB-
-   JWT for the proceeding SD-JWT.
+   usual.  The resulting array of components MUST have exactly one empty
+   component between the last component of each SD-JWT or KB-SD-JWT and
+   the following KB-SD-JWT.  The following KB-SD-JWT is then used as the
+   KB-JWT for the preceding SD-JWT.
 
    dSD-JWT+KB and dSD-JWT formats are differentiated by a trailing ~ for
    dSD-JWT.
@@ -362,14 +365,16 @@ Table of Contents
 
    For both the General and Flattened JSON Serialization, the dSD-JWT or
    dSD-JWT+KB is represented as a JSON object.  The only change in
-   encoding is to the format of the kb-jwt in the unprotected header,
-   which now MUST conform to the general or flattened JSON serialization
-   of an sd-jwt.
+   encoding is to the format of the kb_jwt unprotected header parameter
+   ([RFC9901] Section 8.1), whose value now MUST conform to the General
+   or Flattened JSON Serialization of an SD-JWT.  The sd_hash and
+   issuer_jwt_hash digests MUST be computed over the equivalent Compact
+   Serialization as defined in Section 8.1 of [RFC9901].
 
 5.1.3.  Delegate Payload Disclosure
 
    The delegate payload disclosure is an Array disclosure, which is the
-   base64urlencoding of [salt, JSON Object Payload].
+   base64url encoding of [salt, JSON Object Payload].
 
    The Disclosure Payload MUST follow all rules for the payload of the
    Issuer-signed JWT specified in [RFC9901] Section 4.1.
@@ -377,13 +382,13 @@ Table of Contents
    The Delegate Disclosures are created as per [RFC9901] Section 4.2.
 
    The Delegate KB-JWT is a KB-JWT as per [RFC9901] Section 4.3 except
-   that sd_hash, when present, is calculated over the proceeding SD-JWT
-   or KB-SD-JWT and its associated disclosures.
+   that the REQUIRED sd_hash is calculated over the preceding KB-SD-JWT
+   and its associated disclosures.
 
 5.1.4.  KB-SD-JWT and KB-SD-JWT+KB
 
    This specifies two new extensions to the KB-JWT.  The following
-   additional parameter is include:
+   additional claims are included:
 
    *  “*delegate_payload*”: An array of JSON Objects.  If it contains
       more than one element then they MUST all be replaced with
@@ -401,21 +406,24 @@ Table of Contents
    KB-JWT changes:
 
    *  The typ parameter value MUST be replaced with "kb+sd-jwt" for a
-      KB-SD-JWT, and "kb+sd-jwt+kb" for a KB-SD-JWT+KB.
+      KB-SD-JWT, and "kb-sd-jwt+kb" for a KB-SD-JWT+KB.
       -  If the typ is KB-SD-JWT+KB then the Delegate Payload MUST
          include a cnf claim.
    *  The sd_hash parameter is OPTIONAL.  If it is not present it MUST
       instead include a issuer_jwt_hash parameter that hashes over only
-      the proceeding Issuer-signed jwt or KB-SD-JWT+KB and not any
+      the preceding Issuer-signed jwt or KB-SD-JWT+KB and not any
       disclosures.
 
-   When calculating the sd_hash it is calculated from the proceeding
-   Issuer JWT or KB-SD-JWT+KB.
+   When present, the sd_hash is calculated over the preceding SD-JWT or
+   KB-SD-JWT, including its disclosures, as described in Section 4.3.1.
+   Both sd_hash and issuer_jwt_hash use the hash algorithm of the
+   preceding Issuer-signed JWT or KB-SD-JWT+KB, as defined in [RFC9901]
+   Section 4.3.1.
 
    SD-JWT changes:
 
    *  All claims that are expected to be found in the issuer-signed JWT
-      Payload except the _sd_hash payload MUST instead be claims in the
+      Payload except the _sd_alg claim MUST instead be claims in the
       Delegate Payload.
 
 6.  Verification
@@ -426,39 +434,43 @@ Table of Contents
    1.  Split the dSD-JWT into its component SD-JWTs
        1.  For a dSD-JWT this will be:
            *  A SD-JWT
-           *  zero or more KB-SD-JWTs with typ "kb+sd-jwt+kb"
-           *  one KB-SD-JWT with typ “kb+sd-jwt”
+           *  zero or more KB-SD-JWTs with typ "kb-sd-jwt+kb"
+           *  one KB-SD-JWT with typ "kb+sd-jwt" or "kb-sd-jwt+kb"
        2.  For a dSD-JWT+KB this will be:
            *  A SD-JWT
-           *  One or more KB-SD-JWTs with typ kb+sd-jwt+kb”
+           *  One or more KB-SD-JWTs with typ "kb-sd-jwt+kb"
            *  One KB-JWT
    2.  Validate and process the initial SD-JWT according to [RFC9901]
        Section 7.1.
    3.  For each KB-SD-JWT except the final one:
        1.  Validate and process it according to [RFC9901] Section 7.1
-           *  The cnf claim of the proceeding component is used as the
+           *  The cnf claim of the preceding component is used as the
               Issuer public key.
            *  Treat the Delegate Payload as the JWT Payload for finding
               all claims other than the _sd_alg claim.
        2.  Verify that there is exactly one disclosed element in the
            delegate_payload array.
        3.  If the sd_hash claim is present, calculate the digest over
-           the proceeding SD-JWT or KB-SD-JWT and it's disclosures, as
-           described in [RFC9901] Section 9.10. d.  Otherwise, verify
-           that the issuer_jwt_hash is present and matches the base64url
-           encoded digest of the proceeding Issuer signed JWT or KB-SD-
-           JWT+KB. e.  Verify the typ in the JWT Payload is “kb+sd-
-           jwt+kb”
+           the preceding SD-JWT or KB-SD-JWT and its disclosures, as
+           described in Section 4.3.1, and verify that it matches the
+           value of the sd_hash claim.
+       4.  Otherwise, verify that the issuer_jwt_hash is present and
+           matches the base64url encoded digest of the preceding Issuer-
+           signed JWT or KB-SD-JWT+KB.
+       5.  Verify the typ in the JOSE header is "kb-sd-jwt+kb"
    4.  For the final KB-SD-JWT:
-       1.  Validate and process it according to 3.1 - 3.3
-       2.  If the credential is a dSD-JWT then the type MUST be “kb+sd-
-           jwt” otherwise it MUST be “kb+sd-jwt+kb”
-   5.  If the credential is a dSD-JWT+KB and Key Binding is required
-       1.  Follow section 7.3 step 5 to to verify the KB-JWT, using the
+       1.  Validate and process it according to 3.1 - 3.4
+       2.  If the credential is a dSD-JWT+KB then the typ MUST be "kb-
+           sd-jwt+kb", otherwise it MUST be "kb+sd-jwt" or "kb-sd-
+           jwt+kb"
+   5.  If Key Binding is required
+       1.  If the credential is a dSD-JWT (without Key Binding), the
+           Verifier MUST reject the presentation, as per Section 7.3.
+       2.  Follow step 5 of Section 7.3 to verify the KB-JWT, using the
            final KB-SD-JWT to retrieve the Delegate Holder public key.
-       2.  If the sd_hash claim is present, calculate the digest over
-           the proceeding SD-JWT or KB-SD-JWT+KB and it's disclosures as
-           described in [RFC9901] Section 9.10.
+       3.  Calculate the digest over the final KB-SD-JWT+KB and its
+           disclosures as described in Section 4.3.1, and verify that it
+           matches the value of the sd_hash claim.
 
    If any of the steps fail then the presentation is invalid and
    processing MUST be aborted.  Otherwise the list of processed SD-JWT
@@ -467,7 +479,7 @@ Table of Contents
 
 7.  Delegation using Presentation
 
-   Presentation mechanisms that allow specfication of additional
+   Presentation mechanisms that allow specification of additional
    transaction data within the KB-JWT can be used to perform delegation.
    Below is a description of how this can be done using the OpenID4VP
    presentation protocol.
@@ -476,7 +488,7 @@ Table of Contents
 
    OpenId4VP [OIDF.OID4VP] specifies transaction_data within the
    request, which is included within the KB-JWT.  To delegate an dSD-JWT
-   or dSD-JWT+KB the transaction_type delegate MAY be used.  The
+   or dSD-JWT+KB the transaction data type delegate MAY be used.  The
    following additional parameters are included in the transaction_data
    object:
 
@@ -484,12 +496,12 @@ Table of Contents
    *  “delegate_payload_disclosure”: REQUIRED String containing the
       Array Disclosure of the delegate payload.
    *  “delegate_disclosures”: OPTIONAL Array of Strings containing the
-      delegate_payload_disclosure
+      Disclosures for the selectively disclosable claims.
 
    The delegate payload MUST NOT contain any disclosures not provided in
    delegate_disclosures.  The KB-JWT includes the digest of the
-   delegate_payload in the delegate_payload claim of the KB-JWT.
-   _sd_hash may use any hash algorithm specified for hashing the
+   delegate_payload in the delegate_payload claim of the KB-JWT. _sd_alg
+   may use any hash algorithm specified for hashing the
    transaction_data.  The Wallet MAY include additional decoy digests.
 
    Multiple delegate transaction_data MAY be included in the same
@@ -498,7 +510,7 @@ Table of Contents
 
 8.  Security Considerations
 
-   Security Considersations as described in [RFC9901] also apply to
+   Security Considerations as described in [RFC9901] also apply to
    delegate SD-JWTs.  When the Holder is performing a delegation, they
    are acting as an Issuer of an SD-JWT and so all security
    considerations of an issuer apply to them.
@@ -506,10 +518,10 @@ Table of Contents
 8.1.  Mandatory verification of delegate SD-JWT Chain
 
    It is critical that the Verifier verifies each KB-SD-JWT in the chain
-   and ensures that it is bound to the proceeding Issuer JWT or KB-SD-
-   JWT with the sd_hash or issuer_jwt_hash.  Without verifying the
-   binding in both directions a malicious Delegate Holder may mis-match
-   parts of the chain if the Holder cnf is reused.
+   and ensures that it is bound to the preceding Issuer JWT or KB-SD-JWT
+   with the sd_hash or issuer_jwt_hash.  Without verifying the binding
+   in both directions a malicious Delegate Holder may mis-match parts of
+   the chain if the Holder cnf is reused.
 
 8.2.  Delegation Policy
 
@@ -524,8 +536,8 @@ Table of Contents
    a traditional Issuer, an individual Holder can not easily distribute
    revocation information to Verifiers.
 
-   Having a short exp and using claims to constraining the usage of the
-   delegated SD-JWT limits this problem, as does cases where the Holder
+   Having a short exp and using claims to constrain the usage of the
+   delegated SD-JWT limits this problem, as do cases where the Holder
    and the Delegate Holder are managed by the same entity.
 
 9.  Privacy Considerations
@@ -612,7 +624,7 @@ A.2.  Media Type Registration
    *  Interoperability considerations: n/a
    *  Published specification: [[ this specification ]]
    *  Applications that use this media type: Applications utilizing a
-      JWT based proof of possession mechanism with futher selective
+      JWT based proof of possession mechanism with further selective
       disclosure.
    *  Fragment identifier considerations: n/a
    *  Additional information:
@@ -630,7 +642,7 @@ A.2.  Media Type Registration
    To indicate that the content is a Key Binding SD-JWT+KB:
 
    *  Type name: application
-   *  Subtype name: kb+sd-jwt+kb
+   *  Subtype name: kb-sd-jwt+kb
    *  Required parameters: n/a
    *  Optional parameters: n/a
    *  Encoding considerations: binary; A Key Binding SD-JWT+KB is a SD-
@@ -642,7 +654,7 @@ A.2.  Media Type Registration
    *  Interoperability considerations: n/a
    *  Published specification: [[ this specification ]]
    *  Applications that use this media type: Applications utilizing a
-      JWT based proof of possession mechanism with futher selective
+      JWT based proof of possession mechanism with further selective
       disclosure.
    *  Fragment identifier considerations: n/a
    *  Additional information:
@@ -658,6 +670,21 @@ A.2.  Media Type Registration
    *  Provisional registration?  No
 
 Appendix B.  Acknowledgments
+
+   TODO
+
+Appendix C.  Document History
+
+   [[ pre Working Group Adoption: ]]
+
+   -01
+
+   *  editorial fixes
+   *  change kb+sd-jwt+kb to kb-sd-jwt+kb
+
+   -00
+
+   *  Initial Version
 
 Author's Address
 
