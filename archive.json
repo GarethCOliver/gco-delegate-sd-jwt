@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-20T04:00:55.577343+00:00",
+  "timestamp": "2026-09-22T03:56:05.891605+00:00",
   "repo": "GarethCOliver/gco-delegate-sd-jwt",
   "labels": [
     {
@@ -56,26 +56,84 @@
       "id": "PR_kwDORer75M7nAjXy",
       "title": "Fix `typ` parameter value",
       "url": "https://github.com/GarethCOliver/gco-delegate-sd-jwt/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "Vanderkast",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This PR aligns `typ` parameter values in Verification section with Media Type Registration section.\r\n\r\n\r\nMedia Type Registration section declares the following `typ` parameter values: `kb+sd-jwt` and `kb+sd-jwt+kb` (with `+sd-jwt` suffix). But Verification section uses `kb-sd-jwt` and `kb-sd-jwt+kb`.\r\n",
       "createdAt": "2026-06-16T12:46:43Z",
-      "updatedAt": "2026-06-16T12:46:43Z",
+      "updatedAt": "2026-09-21T22:17:12Z",
       "baseRepository": "GarethCOliver/gco-delegate-sd-jwt",
       "baseRefName": "main",
       "baseRefOid": "d67d48eff3c6b06c8a66b6a5692999115ef8a1a3",
       "headRepository": "Vanderkast/delegate-sd-jwt",
       "headRefName": "typ-consistent-with-registration",
       "headRefOid": "2ca1c6a50f7c28010b7ed9b16233db33feeab346",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-09-21T22:17:12Z",
+      "mergedAt": "2026-09-21T22:17:12Z",
+      "mergedBy": "GarethCOliver",
+      "mergeCommit": {
+        "oid": "310585066b07b10ce99a4ea5c701a8777d5dc450"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDORer75M8AAAABOkH2aA",
+          "commit": {
+            "abbreviatedOid": "2ca1c6a"
+          },
+          "author": "GarethCOliver",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-09-21T22:17:05Z",
+          "updatedAt": "2026-09-21T22:17:05Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDORer75M8AAAABEZfOqQ",
+      "title": "editorial pass",
+      "url": "https://github.com/GarethCOliver/gco-delegate-sd-jwt/pull/2",
+      "state": "MERGED",
+      "author": "c2bo",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "mainly editorial pass. only larger change on normative is typ change from `kb+sd-jwt+kb` to `kb-sd-jwt+kb`. ",
+      "createdAt": "2026-09-21T09:47:28Z",
+      "updatedAt": "2026-09-21T23:55:35Z",
+      "baseRepository": "GarethCOliver/gco-delegate-sd-jwt",
+      "baseRefName": "main",
+      "baseRefOid": "310585066b07b10ce99a4ea5c701a8777d5dc450",
+      "headRepository": "c2bo/gco-delegate-sd-jwt",
+      "headRefName": "editorial-pass",
+      "headRefOid": "f1bf6627a18a8cbac859c93a37fc9104ec3fbec0",
+      "closedAt": "2026-09-21T23:55:35Z",
+      "mergedAt": "2026-09-21T23:55:35Z",
+      "mergedBy": "GarethCOliver",
+      "mergeCommit": {
+        "oid": "e44c0c1db71568877776cb0742b14e8f5325ce90"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDORer75M8AAAABOkIbUg",
+          "commit": {
+            "abbreviatedOid": "63ac241"
+          },
+          "author": "GarethCOliver",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-09-21T22:18:32Z",
+          "updatedAt": "2026-09-21T22:18:32Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
