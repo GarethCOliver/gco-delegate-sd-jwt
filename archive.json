@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-22T03:56:05.891605+00:00",
+  "timestamp": "2026-09-24T03:46:11.858345+00:00",
   "repo": "GarethCOliver/gco-delegate-sd-jwt",
   "labels": [
     {
@@ -49,7 +49,40 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 3,
+      "id": "I_kwDORer75M8AAAABSzo5zQ",
+      "title": "Should security claims be in the base JWT for delegates vs delegate_payload",
+      "url": "https://github.com/GarethCOliver/gco-delegate-sd-jwt/issues/3",
+      "state": "OPEN",
+      "author": "GarethCOliver",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Current text says to put them in the delegate_payload, to disambiguate from the KbJwt claims and to allow for each payload to differ (e.g. different exp)\n\nFrom implementing this, it's kinda a pain. Existing JWT and SD-JWT libraries expect the claims to be in the base. Additionally, it means doing at least some amount of processing of the SD-JWT before being able to access the security claims, which isn't ideal. \n\nThe original reason for doing this was encapsulation and flexibility but given the amount of difficulty it adds to actual implementations I'm not convinced it is worthwhile. If we instead put them in the base and just say 'if you want different ones, create different delegate_sd-jwts', which is always an option, if sometimes inconvenient then this is likely a good trade-off. ",
+      "createdAt": "2026-09-23T17:30:48Z",
+      "updatedAt": "2026-09-23T17:30:48Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDORer75M8AAAABSzqIXQ",
+      "title": "issuer_jwt_hash name",
+      "url": "https://github.com/GarethCOliver/gco-delegate-sd-jwt/issues/4",
+      "state": "OPEN",
+      "author": "GarethCOliver",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "issuer_jwt_hash isn't a great name, as it is really just the preceeding jwt (which may or may not be an issuer jwt). Renaming to providing clarity (e.g. just jwt_hash or binding_jwt_hash or parent_jwt_hash to complement sd_hash may help) ",
+      "createdAt": "2026-09-23T17:32:30Z",
+      "updatedAt": "2026-09-23T17:32:30Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
