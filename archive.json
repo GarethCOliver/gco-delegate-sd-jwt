@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-24T03:46:11.858345+00:00",
+  "timestamp": "2026-09-27T04:21:17.868946+00:00",
   "repo": "GarethCOliver/gco-delegate-sd-jwt",
   "labels": [
     {
@@ -79,6 +79,22 @@
       "body": "issuer_jwt_hash isn't a great name, as it is really just the preceeding jwt (which may or may not be an issuer jwt). Renaming to providing clarity (e.g. just jwt_hash or binding_jwt_hash or parent_jwt_hash to complement sd_hash may help) ",
       "createdAt": "2026-09-23T17:32:30Z",
       "updatedAt": "2026-09-23T17:32:30Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDORer75M8AAAABTFRhtA",
+      "title": "Add Examples",
+      "url": "https://github.com/GarethCOliver/gco-delegate-sd-jwt/issues/5",
+      "state": "OPEN",
+      "author": "GarethCOliver",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Add some illustrative examples",
+      "createdAt": "2026-09-24T22:52:01Z",
+      "updatedAt": "2026-09-24T22:52:01Z",
       "closedAt": null,
       "comments": []
     }
