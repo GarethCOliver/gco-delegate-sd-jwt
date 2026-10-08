@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-09-27T04:21:17.868946+00:00",
+  "timestamp": "2026-10-08T05:08:49.641974+00:00",
   "repo": "GarethCOliver/gco-delegate-sd-jwt",
   "labels": [
     {
@@ -95,6 +95,22 @@
       "body": "Add some illustrative examples",
       "createdAt": "2026-09-24T22:52:01Z",
       "updatedAt": "2026-09-24T22:52:01Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDORer75M8AAAABVtcQag",
+      "title": "Use a collision-resistance TransactionData type",
+      "url": "https://github.com/GarethCOliver/gco-delegate-sd-jwt/issues/6",
+      "state": "OPEN",
+      "author": "GarethCOliver",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "This specification defines a Transaction Data type for performing delegation-as-presentation. The current type, 'delegate' isn't collision resistant. Should update it to either a urn or an r-dns name. ",
+      "createdAt": "2026-10-07T21:08:22Z",
+      "updatedAt": "2026-10-07T21:08:22Z",
       "closedAt": null,
       "comments": []
     }
