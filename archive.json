@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-08T05:08:49.641974+00:00",
+  "timestamp": "2026-10-15T03:45:51.344986+00:00",
   "repo": "GarethCOliver/gco-delegate-sd-jwt",
   "labels": [
     {
@@ -111,6 +111,38 @@
       "body": "This specification defines a Transaction Data type for performing delegation-as-presentation. The current type, 'delegate' isn't collision resistant. Should update it to either a urn or an r-dns name. ",
       "createdAt": "2026-10-07T21:08:22Z",
       "updatedAt": "2026-10-07T21:08:22Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDORer75M8AAAABW3mMuA",
+      "title": "Clarify how availability of revocation information can effect the chain",
+      "url": "https://github.com/GarethCOliver/gco-delegate-sd-jwt/issues/7",
+      "state": "OPEN",
+      "author": "GarethCOliver",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "From call for adoption: Cliff Singletary@ \n\n\"Section 6 ends in a binary: \u201cIf any of the steps fail then the presentation is invalid and processing MUST be aborted.\u201d For chain integrity that is right; nothing in steps 1\u20135 is fetched. But Section 8.3 defers revocation to \u201ctraditional mechanisms,\u201d which do fetch. Once a verifier consults a status source for any link, it needs to distinguish a chain it evaluated and refused from a chain it could not evaluate because the source did not answer, and to record which link\u2019s status was unavailable. Otherwise an outage reads later as a revocation of the delegator.\"\n\n\n",
+      "createdAt": "2026-10-13T11:42:15Z",
+      "updatedAt": "2026-10-13T11:42:15Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDORer75M8AAAABW3nmrA",
+      "title": "Place requirements, or clarify that constraints can only narrow across the chain",
+      "url": "https://github.com/GarethCOliver/gco-delegate-sd-jwt/issues/8",
+      "state": "OPEN",
+      "author": "GarethCOliver",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "From call for adoption: Cliff Singletary: \"Section 8.2 lets an Issuer or Holder put constraints in \u201cvisible claims,\u201d but nothing in Section 6 requires the verifier to check that each Delegate Payload stays within the constraints of the link that issued it. Narrowing-only across the chain should be a verifier requirement rather than a policy option, or the chain carries attribution but not bounded authority.\"",
+      "createdAt": "2026-10-13T11:43:56Z",
+      "updatedAt": "2026-10-13T11:43:56Z",
       "closedAt": null,
       "comments": []
     }
