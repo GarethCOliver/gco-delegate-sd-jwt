@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-15T03:45:51.344986+00:00",
+  "timestamp": "2026-10-18T03:38:38.078439+00:00",
   "repo": "GarethCOliver/gco-delegate-sd-jwt",
   "labels": [
     {
@@ -110,9 +110,17 @@
       "labels": [],
       "body": "This specification defines a Transaction Data type for performing delegation-as-presentation. The current type, 'delegate' isn't collision resistant. Should update it to either a urn or an r-dns name. ",
       "createdAt": "2026-10-07T21:08:22Z",
-      "updatedAt": "2026-10-07T21:08:22Z",
+      "updatedAt": "2026-10-15T20:35:03Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "TheBlackBit",
+          "authorAssociation": "NONE",
+          "body": "+1 to this. OpenID4VP 1.0 Section 5.1 recommends collision-resistant names for type values, and an urn or a reverse-DNS name would both work for us.\n\nAP2\u2019s agent_authorization.md also requires type to be exactly \"delegate\", so its docs will need to change along with the draft. I\u2019ve opened [google-agentic-commerce/AP2#380](https://github.com/google-agentic-commerce/AP2/issues/380) for that.",
+          "createdAt": "2026-10-15T20:35:03Z",
+          "updatedAt": "2026-10-15T20:35:03Z"
+        }
+      ]
     },
     {
       "number": 7,
