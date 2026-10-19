@@ -2,16 +2,18 @@
 
 # Delegate SD-JWT
 
-This is the working area for the individual Internet-Draft, "Delegate SD-JWT".
+This is the working area for the IETF [OAUTH Working Group](https://datatracker.ietf.org/group/oauth/documents/) Internet-Draft, "Delegate SD-JWT".
 
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-gco-oauth-delegate-sd-jwt)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-gco-oauth-delegate-sd-jwt)
+* [Editor's Copy](https://GarethCOliver.github.io/oauth-delegate-sd-jwt/#go.draft-ietf-oauth-delegate-sd-jwt.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-oauth-delegate-sd-jwt)
+* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-delegate-sd-jwt)
+* [Compare Editor's Copy to Working Group Draft](https://GarethCOliver.github.io/oauth-delegate-sd-jwt/#go.draft-ietf-oauth-delegate-sd-jwt.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/GarethCOliver/gco-delegate-sd-jwt/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/GarethCOliver/oauth-delegate-sd-jwt/blob/main/CONTRIBUTING.md).
 
 The contributing file also has tips on how to make contributions, if you
 don't already know how to do that.
