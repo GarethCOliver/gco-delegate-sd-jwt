@@ -18,7 +18,7 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-gco-delegate-sd-jwt.xml
+draft-ietf-oauth-delegate-sd-jwt.xml
 package-lock.json
 report.xml
 !requirements.txt
