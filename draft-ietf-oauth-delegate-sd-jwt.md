@@ -7,7 +7,7 @@ keyword = ["sd-jwt", "delegate sd-jwt"]
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "draft-gco-oauth-delegate-sd-jwt-latest"
+value = "draft-ietf-oauth-delegate-sd-jwt-latest"
 stream = "IETF"
 status = "standard"
 
@@ -434,6 +434,10 @@ To indicate that the content is a Key Binding SD-JWT+KB:
 TODO
 
 # Document History
+
+-00
+
+* Initial Working Group Draft (adopted from draft-gco-oauth-delegate-sd-jwt)
 
 [[ pre Working Group Adoption: ]]
 
