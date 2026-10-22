@@ -4,8 +4,9 @@
 
 Web Authorization Protocol                                     G. Oliver
 Internet-Draft                                                    Google
-Intended status: Standards Track                         19 October 2026
-Expires: 22 April 2027
+Intended status: Standards Track                              C. Bormann
+Expires: 25 April 2027                                            SPRIND
+                                                         22 October 2026
 
 
                             Delegate SD-JWT
@@ -34,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 April 2027.
+   This Internet-Draft will expire on 25 April 2027.
 
 Copyright Notice
 
@@ -84,7 +85,7 @@ Table of Contents
      A.2.  Media Type Registration
    Appendix B.  Acknowledgments
    Appendix C.  Document History
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -691,8 +692,13 @@ Appendix C.  Document History
 
    *  Initial Version
 
-Author's Address
+Authors' Addresses
 
    Gareth Oliver
    Google
    Email: gco@google.com
+
+
+   Christian Bormann
+   SPRIND
+   Email: chris.bormann@gmx.de
