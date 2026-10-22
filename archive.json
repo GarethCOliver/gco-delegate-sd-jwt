@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-20T03:59:47.668038+00:00",
+  "timestamp": "2026-10-22T03:48:50.334769+00:00",
   "repo": "GarethCOliver/oauth-delegate-sd-jwt",
   "labels": [
     {
@@ -110,7 +110,7 @@
       "labels": [],
       "body": "This specification defines a Transaction Data type for performing delegation-as-presentation. The current type, 'delegate' isn't collision resistant. Should update it to either a urn or an r-dns name. ",
       "createdAt": "2026-10-07T21:08:22Z",
-      "updatedAt": "2026-10-15T20:35:03Z",
+      "updatedAt": "2026-10-22T01:47:58Z",
       "closedAt": null,
       "comments": [
         {
@@ -119,6 +119,13 @@
           "body": "+1 to this. OpenID4VP 1.0 Section 5.1 recommends collision-resistant names for type values, and an urn or a reverse-DNS name would both work for us.\n\nAP2\u2019s agent_authorization.md also requires type to be exactly \"delegate\", so its docs will need to change along with the draft. I\u2019ve opened [google-agentic-commerce/AP2#380](https://github.com/google-agentic-commerce/AP2/issues/380) for that.",
           "createdAt": "2026-10-15T20:35:03Z",
           "updatedAt": "2026-10-15T20:35:03Z"
+        },
+        {
+          "author": "ab-makage",
+          "authorAssociation": "NONE",
+          "body": "+1 to making the transaction data type collision-resistant.\n\nI wonder if it would also be useful to:\n\n1. use a concrete namespace and make the schema version explicit in the type identifier, for example `urn:delegate:org.ietf.oauth:1`; and\n2. make the use of `credential_ids` explicit in the delegate transaction data definition/examples, aligning it with the OpenID4VP transaction data structure.\n\nFor example:\n\n```json\n{\n  \"type\": \"urn:delegate:org.ietf.oauth:1\",\n  \"credential_ids\": [\"credential_query_id\"],\n  \"format\": \"dSD-JWT+KB\",\n  \"delegate_payload_disclosure\": \"...\",\n  \"delegate_disclosures\": [\"...\"]\n}\n```\n\nHere, `org.ietf.oauth` is proposed as a concrete namespace for this specification, and the final segment (`1`) represents the schema version.\n\nThe versioned type identifier would make future schema evolution explicit. PaSO takes a similar approach for OpenID4VP transaction data, using a versioned URN structure such as `urn:paso:sca:<domain>:<suffix>:<version>`.\n\nAlso, making the use of `credential_ids` explicit would clarify which DCQL Credential Query the delegation transaction data applies to, consistent with the OpenID4VP transaction data model.\n\nWould a naming and structure along these lines make sense?",
+          "createdAt": "2026-10-22T01:47:58Z",
+          "updatedAt": "2026-10-22T01:47:58Z"
         }
       ]
     },
