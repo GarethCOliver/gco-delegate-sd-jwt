@@ -20,6 +20,14 @@ organization="Google"
     [author.address]
     email = "gco@google.com"
 
+[[author]]
+initials="C."
+surname="Bormann"
+fullname="Christian Bormann"
+organization="SPRIND"
+    [author.address]
+    email = "chris.bormann@gmx.de"
+
 %%%
 
 .# abstract
