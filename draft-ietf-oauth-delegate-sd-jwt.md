@@ -303,15 +303,33 @@ Presentation mechanisms that allow specification of additional transaction data 
 
 ## dSD-JWT Delegation using OpenID4VP
 
-OpenId4VP [@!OIDF.OID4VP] specifies `transaction_data` within the request, which is included within the KB-JWT. To delegate an dSD-JWT or dSD-JWT+KB the transaction data `type` `delegate` MAY be used. The following additional parameters are included in the `transaction_data` object:
+OpenId4VP [@!OIDF.OID4VP] specifies `transaction_data` within the request, which is included within the KB-JWT.
 
-* “format”: REQUIRED string containing either `dSD-JWT` or `dSD-JWT+KB`
-* “delegate\_payload\_disclosure”: REQUIRED String containing the Array Disclosure of the delegate payload.
-* “delegate\_disclosures”: OPTIONAL Array of Strings containing the Disclosures for the selectively disclosable claims.
+To delegate a dSD-JWT or dSD-JWT+KB, the transaction data `type` `urn:delegate:<namespace>:<version>` MAY be used.
+
+The delegate `transaction_data` object contains the following parameters:
+
+* `type`: REQUIRED. String formatted as `urn:delegate:<namespace>:<version>`, where `<namespace>` identifies the namespace of the delegate transaction data type and `<version>` identifies the schema version.
+* `credential_ids`: REQUIRED. Non-empty array of strings identifying the Credential Query or Queries to which the delegation transaction data applies.
+* `format`: REQUIRED. String containing either `dSD-JWT` or `dSD-JWT+KB`.
+* `delegate_payload_disclosure`: REQUIRED. String containing the Array Disclosure of the delegate payload.
+* `delegate_disclosures`: OPTIONAL. Array of Strings containing the Disclosures for the selectively disclosable claims.
+
+For example, a decoded delegate `transaction_data` object could have the following structure:
+
+~~~json
+{
+  "type": "urn:delegate:org.ietf.oauth:1",
+  "credential_ids": ["credential_query_id"],
+  "format": "dSD-JWT+KB",
+  "delegate_payload_disclosure": "...",
+  "delegate_disclosures": ["..."]
+}
+~~~
 
 The delegate payload MUST NOT contain any disclosures not provided in `delegate_disclosures`. The KB-JWT includes the digest of the `delegate_payload` in the `delegate_payload` claim of the KB-JWT. `_sd_alg` may use any hash algorithm specified for hashing the `transaction_data`. The Wallet MAY include additional decoy digests.
 
-Multiple `delegate` `transaction_data` MAY be included in the same request. In that case, each MUST have their digest included in the `delegate_payload`.
+Multiple `transaction_data` objects with a `type` formatted as `urn:delegate:<namespace>:<version>` MAY be included in the same request. In that case, each MUST have their digest included in the `delegate_payload`.
 
 # Security Considerations
 
